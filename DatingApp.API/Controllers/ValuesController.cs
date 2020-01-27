@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ namespace DatingApp.API.Controllers
 {
     //let the server knows how to route our request
     //[controller] is simply a place holder for the classname "Values" without the "Controller"
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
@@ -21,6 +23,7 @@ namespace DatingApp.API.Controllers
             _context = context;
         }
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         //async programming in c# has the benefit to handle more user requests.
         public async Task<IActionResult> GetValues()
