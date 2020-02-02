@@ -28,13 +28,13 @@ namespace DatingApp.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userforRegisterDto)
         {
-
             userforRegisterDto.Username = userforRegisterDto.Username.ToLower();
 
             if (await _repo.UserExists(userforRegisterDto.Username))
             {
                 return BadRequest("Username already exist");
             }
+
 
             var userToCreate = new User { Username = userforRegisterDto.Username };
 
@@ -49,6 +49,7 @@ namespace DatingApp.API.Controllers
         {
             var userFromRepo = await _repo.Login(userForLoginDto.Username, userForLoginDto.Password);
 
+            //cuz the 
             if (userFromRepo == null) return Unauthorized();
 
             //create JWT token using C# classes
@@ -61,12 +62,8 @@ namespace DatingApp.API.Controllers
             //從appsttings.json中提取我們JWT的secret, 並把他轉換成byte
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            Console.WriteLine(key);
-
             //hash the byte code key.
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            Console.WriteLine(creds);
 
             var tokenDescriptor = new SecurityTokenDescriptor()
             {

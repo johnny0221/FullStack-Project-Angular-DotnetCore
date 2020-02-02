@@ -12,9 +12,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using DatingApp.API.Data;
+using DatingApp.API.helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -31,9 +36,15 @@ namespace DatingApp.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });            
             services.AddCors();
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -55,6 +66,22 @@ namespace DatingApp.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler(app =>
+                app.Run(async context =>
+                { // app.Run()是把這個middleware轉向到另一個middleware.
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+                    if (error != null)
+                    {
+                        context.Response.AddApplicationErrors(error.Error.Message);
+                        await context.Response.WriteAsync(error.Error.Message);
+                    }
+                })
+                );
+            }
 
             // app.UseHttpsRedirection();
 
@@ -65,8 +92,6 @@ namespace DatingApp.API
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.UseCustom();
 
             app.UseEndpoints(endpoints =>
             {

@@ -9,7 +9,7 @@ namespace DatingApp.API.DTOS
         public string Username { get; set; }
 
         [Required]
-        [StringLength(8, MinimumLength = 4, ErrorMessage = "You must Submit a password more than 4 chars.")]
+        [StringLength(10, MinimumLength = 4, ErrorMessage = "You must Submit a password more than 4 chars.")]
         public string Password { get; set; }
     }
 }
