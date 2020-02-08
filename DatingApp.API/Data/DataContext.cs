@@ -13,6 +13,6 @@ namespace DatingApp.API.Data
         //EF CORE會幫我們把DbSet轉成資料表
         public DbSet<Value> Values { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Photo> Photots { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 }

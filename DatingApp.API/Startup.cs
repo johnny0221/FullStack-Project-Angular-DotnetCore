@@ -20,6 +20,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
+using System.Security.Claims;
 
 namespace DatingApp.API
 {
@@ -42,6 +43,7 @@ namespace DatingApp.API
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });            
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
@@ -56,6 +58,10 @@ namespace DatingApp.API
                         ValidateAudience = false
                     };
                 });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("FirstUserOnly", policy => policy.RequireClaim(ClaimTypes.Name, "lola"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

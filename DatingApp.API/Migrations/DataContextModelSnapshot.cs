@@ -25,8 +25,14 @@ namespace DatingApp.API.Migrations
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Description")
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsMain")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("PublicId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
@@ -34,14 +40,11 @@ namespace DatingApp.API.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("isMain")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Photots");
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("DatingApp.API.models.User", b =>
@@ -110,7 +113,7 @@ namespace DatingApp.API.Migrations
 
             modelBuilder.Entity("DatingApp.API.models.Photo", b =>
                 {
-                    b.HasOne("DatingApp.API.models.User", "user")
+                    b.HasOne("DatingApp.API.models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

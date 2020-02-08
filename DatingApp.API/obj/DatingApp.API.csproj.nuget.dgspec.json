@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj": {}
+    "D:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj": {}
   },
   "projects": {
-    "d:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj": {
+    "D:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj",
+        "projectUniqueName": "D:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj",
         "projectName": "DatingApp.API",
-        "projectPath": "d:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj",
+        "projectPath": "D:\\Web\\AD_FullStack\\DatingApp.API\\DatingApp.API.csproj",
         "packagesPath": "C:\\Users\\子洋\\.nuget\\packages\\",
-        "outputPath": "d:\\Web\\AD_FullStack\\DatingApp.API\\obj\\",
+        "outputPath": "D:\\Web\\AD_FullStack\\DatingApp.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\子洋\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -41,6 +41,10 @@
             "AutoMapper.Extensions.Microsoft.DependencyInjection": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.8.0, )"
             },
             "Microsoft.AspNetCore.Authentication": {
               "target": "Package",
