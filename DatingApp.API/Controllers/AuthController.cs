@@ -39,11 +39,13 @@ namespace DatingApp.API.Controllers
             }
 
 
-            var userToCreate = new User { Username = userforRegisterDto.Username };
+            var userToCreate = _mapper.Map<User>(userforRegisterDto);
 
             var createdUser = await _repo.Register(userToCreate, userforRegisterDto.Password);
 
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+
+            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, userToReturn);
         }
 
         [HttpPost("login")]
@@ -54,6 +56,7 @@ namespace DatingApp.API.Controllers
 
             //cuz the 
             if (userFromRepo == null) return Unauthorized();
+
 
             //create JWT token using C# classes
             var claims = new[]

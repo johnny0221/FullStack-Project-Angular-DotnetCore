@@ -28,7 +28,6 @@ export class AuthService {
 			map((response: any) => {
 				const user = response;
 				if (user) {
-					console.log(user);
 					localStorage.setItem('token', user.token);
 					localStorage.setItem('user', JSON.stringify(user.user));
 					this.decodedToken = this.jwtHelper.decodeToken(user.token);
@@ -39,8 +38,8 @@ export class AuthService {
 		);
 	}
 
-	register(model: any) {
-		return this.http.post(this.baseUrl + '/register', model);
+	register(user: User) {
+		return this.http.post(this.baseUrl + '/register', user);
 	}
 
 	isloggedIn() {

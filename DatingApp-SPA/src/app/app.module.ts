@@ -27,6 +27,7 @@ import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -55,11 +56,13 @@ export class CustomHammerConfig extends HammerGestureConfig {
 	],
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		HttpClientModule,
 		ReactiveFormsModule,
 		FormsModule,
 		BrowserAnimationsModule,
 		BsDropdownModule.forRoot(),
+		BsDatepickerModule.forRoot(),
 		RouterModule.forRoot(appRoutes),
 		JwtModule.forRoot({
 			config: {

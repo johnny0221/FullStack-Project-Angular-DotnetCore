@@ -54,8 +54,6 @@ namespace DatingApp.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPhotoForUser(int userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
-            Console.WriteLine("in here");
-
             if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
 
@@ -88,7 +86,7 @@ namespace DatingApp.API.Controllers
             // add the newly created photo model to the user.
             userFromRepo.Photos.Add(photo);
 
-            // save the user.
+            // save the userFromRepo entity because we mutate it.
             if(await _repo.SaveAll()) {
                 // we map here because SQLite is responsible for generating the id of the "photo" object, we have to wait till it's saved.
                 var photoToReturn = _mapper.Map<PhotoForReturnDto>(photo);
@@ -153,7 +151,6 @@ namespace DatingApp.API.Controllers
                 var result = _cloudinary.Destroy(deleteParams);
 
                 if(result.Result == "ok") {
-                    Console.WriteLine(result);
                     _repo.Delete(photoFromRepo);
                 }
             }

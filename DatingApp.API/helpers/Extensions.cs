@@ -19,6 +19,7 @@ namespace DatingApp.API.helpers
             {
                 age--;
             }
+            Console.WriteLine(age);
 
             return age;
         }

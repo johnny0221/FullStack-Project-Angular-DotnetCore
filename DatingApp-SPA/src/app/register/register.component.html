@@ -2,16 +2,86 @@
   <h2 class="text-center text-primary">Sign Up</h2>
   <hr>
 
+  <!-- gender -->
   <div class="form-group">
-    <input type="text" class="form-control" placeholder="Username" formControlName="Username" name="Username">
+    <label class="control-label" style="margin-right:10px">I am a: </label>
+    <label class="radio-inline">
+      <input class="mr-3" type="radio" value="male" formControlName="Gender">Male
+    </label>
+    <label class="radio-inline ml-3">
+      <input class="mr-3" type="radio" value="female" formControlName="Gender">Female
+    </label>
+  </div>
+
+  <!-- username -->
+  <div class="form-group">
+    <input 
+    type="text" 
+    class="form-control" 
+    placeholder="Username" 
+    formControlName="Username" 
+    name="Username"
+    [ngClass] = "{'is-invalid': model.get('Username').errors && model.get('Username').touched}">
+    <div class="invalid-feedback">
+      Please choose a Username
+    </div>
+  </div>
+
+  <!-- knownas -->
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': model.get('KnownAs').errors && model.get('KnownAs').touched}" class="form-control"
+      placeholder="Known as" formControlName="KnownAs">
+    <div class="invalid-feedback" *ngIf="model.get('KnownAs').touched && model.get('KnownAs').hasError('required')">Known as is required</div>
+  </div>
+
+  <!-- dateofbirth -->
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': model.get('DateOfBirth').errors && model.get('DateOfBirth').touched}" class="form-control"
+      placeholder="Date of Birth" formControlName="DateOfBirth" type="text" bsDatepicker [bsConfig] = "bsConfig">
+    <div class="invalid-feedback" *ngIf="model.get('DateOfBirth').touched && model.get('DateOfBirth').hasError('required')">Date of Birth is required</div>
+  </div>
+
+  <!-- city and country -->
+  <div class="form-group">
+    <input [ngClass]="{'is-invalid': model.get('City').errors && model.get('City').touched}" class="form-control"
+      placeholder="City" formControlName="City">
+    <div class="invalid-feedback" *ngIf="model.get('City').touched && model.get('City').hasError('required')">City is required</div>
   </div>
 
   <div class="form-group">
-    <input type="password" class="form-control" placeholder="Password" formControlName="Password" name="Password">
+    <input [ngClass]="{'is-invalid': model.get('Country').errors && model.get('Country').touched}" class="form-control"
+      placeholder="Country" formControlName="Country">
+    <div class="invalid-feedback" *ngIf="model.get('Country').touched && model.get('Country').hasError('required')">Country is required</div>
   </div>
+
+  <!-- password -->
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" formControlName="Password" name="Password"
+    [ngClass] = "{'is-invalid': model.get('Password').errors && model.get('Password').touched}">
+    <div class="invalid-feedback" *ngIf="model.get('Password').touched && model.get('Password').hasError('required')">
+      Password is required
+    </div>
+    <div class="invalid-feedback"  *ngIf="model.get('Password').touched && model.get('Password').hasError('minlength')">
+      Password needs to be longer than 4 characters
+    </div>
+    <div class="invalid-feedback" *ngIf="model.get('Password').touched && model.get('Password').hasError('maxlength')">
+      Password needs to be shorter than 8 chracters
+    </div>
+  </div>
+
+  <!-- confirmpassword -->
+  <div class="form-group">
+    <input type="password" class="form-control" placeholder="Password" formControlName="Confirmpassword" name="Confirmpassword"
+    [ngClass] = "{'is-invalid': model.get('Confirmpassword').errors && model.get('Confirmpassword').touched ||
+                  model.get('Confirmpassword').touched && model.hasError('mismatched')}">
+    <div class="invalid-feedback" *ngIf="model.get('Confirmpassword').touched && model.hasError('mismatched')">
+      Password must match
+    </div>
+  </div>
+
 
   <div class="form-group text-center">
-    <button class="btn btn-success" type="submit" (click)="register()">Register</button>
+    <button class="btn btn-success" type="submit" (click)="register()" [disabled] = "!model.valid">Register</button>
     <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
   </div>
 
