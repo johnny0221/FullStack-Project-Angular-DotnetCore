@@ -109,7 +109,7 @@ namespace DatingApp.API.Data
 
         public async Task<Like> GetLike(int userId, int recipientId)
         {
-            return await _context.Likes.FirstOrDefaultAsync(u => u.LikeeId == userId && u.LikerId == recipientId);
+            return await _context.Likes.FirstOrDefaultAsync(u => u.LikerId == userId && u.LikeeId == recipientId);
         }
     }
 }

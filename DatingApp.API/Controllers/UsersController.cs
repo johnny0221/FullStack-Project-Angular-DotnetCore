@@ -85,7 +85,7 @@ namespace DatingApp.API.Controllers
         {
             if(id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
                 return Unauthorized();
-            
+                        
             var like = await _repo.GetLike(id, recipientId);
 
             if(like != null) 
