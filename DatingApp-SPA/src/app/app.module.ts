@@ -28,6 +28,9 @@ import { PreventUnsavedChanges } from './prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 export function tokenGetter() {
 	return localStorage.getItem('token');
@@ -52,7 +55,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
 		MemberCardComponent,
 		MemberDetailComponent,
 		MemberEditComponent,
-		PhotoEditorComponent
+		PhotoEditorComponent,
+		TimeAgoPipe
 	],
 	imports: [
 		BrowserModule,
@@ -73,7 +77,9 @@ export class CustomHammerConfig extends HammerGestureConfig {
 		}),
 		TabsModule.forRoot(),
 		NgxGalleryModule,
-		FileUploadModule
+		FileUploadModule,
+		PaginationModule.forRoot(),
+		ButtonsModule.forRoot()
 	],
 	providers: [
 		ErrorInterceptorProvider,
