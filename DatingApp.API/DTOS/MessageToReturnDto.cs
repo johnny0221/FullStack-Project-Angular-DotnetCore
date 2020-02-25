@@ -4,7 +4,7 @@ namespace DatingApp.API.DTOS
 {
     public class MessageToReturnDto
     {
-        
+        public int Id { get; set; }
         public int SenderId { get; set; }
         public string SenderKnownAs { get; set; }
         public int RecipientId { get; set; }
